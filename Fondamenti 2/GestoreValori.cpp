@@ -64,21 +64,26 @@ class GestoreValoriB : public GestoreValori{
 };
 
 int main(){
-    GestoreValoriA gv1;
-    GestoreValoriB gv2;
+    vector<GestoreValori*> v;
+    v = {new GestoreValoriA(), new GestoreValoriB()};
     int n;
     cout << "Inserisci il numero di coppie: ";
     cin >> n;
 
-    for(int i = 0; i < n; i++){
-        char c;
-        int num;
-        cout << "Inserisci il carattere e il numero: ";
-        cin >> c >> num;
-        gv1.inserisciCoppia(c, num);
-        gv2.inserisciCoppia(c, num);
+    for(int i = 0; i < v.size(); i++){
+        for(int j = 0; j < n; j++){
+            char c;
+            int num;
+            cout << "Inserisci il carattere e il numero: ";
+            cin >> c >> num;
+            v[i]->inserisciCoppia(c, num);
+        }
     }
 
-    cout << "Risultato di GestoreValoriA: " << gv1.getRisultato() << endl;
-    cout << "Risultato di GestoreValoriB: " << gv2.getRisultato() << endl;
+    for(int i = 0; i < v.size(); i++){
+        cout << "Risultato di GestoreValori" << i+1 << ": " << v[i]->getRisultato() << endl;
+    }
+    for(int i = 0; i < v.size(); i++){
+        delete v[i];
+    }
 }
