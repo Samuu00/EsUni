@@ -4,7 +4,7 @@
 #include <unistd.h> 
 using namespace std;
 
-int nThreads = 100;
+int nThreads = 10;
 
 void* run(void* arg) {
     sleep(1);
