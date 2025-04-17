@@ -1,0 +1,88 @@
+.root {
+    -fx-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.scene {
+    -fx-background-color: #f4f4f4;
+}
+
+.login-layout {
+    -fx-background-color: #f5f5f5;
+    -fx-padding: 20px;
+    -fx-spacing: 10px;
+}
+
+.login-layout .label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+}
+
+.login-layout .text-field, .login-layout .password-field {
+    -fx-font-size: 14px;
+    -fx-padding: 8px;
+    -fx-border-radius: 5px;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #ddd;
+    -fx-pref-width: 250px;
+}
+
+.login-layout .button {
+    -fx-background-color: #0078d4;
+    -fx-text-fill: white;
+    -fx-padding: 10px;
+    -fx-border-radius: 5px;
+    -fx-font-size: 14px;
+}
+
+.login-layout .button:hover {
+    -fx-background-color: #005a9e;
+}
+
+.book-layout {
+    -fx-background-color: #ffffff;
+    -fx-padding: 20px;
+}
+
+.book-layout .button {
+    -fx-background-color: #28a745;
+    -fx-text-fill: white;
+    -fx-padding: 10px;
+    -fx-border-radius: 5px;
+    -fx-font-size: 14px;
+}
+
+.book-layout .button:hover {
+    -fx-background-color: #218838;
+}
+
+.book-list {
+    -fx-spacing: 10px;
+}
+
+.book-list .label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+}
+
+.dark-theme {
+    -fx-background-color: #333;
+    -fx-text-fill: white;
+}
+
+.dark-theme .button {
+    -fx-background-color: #555;
+    -fx-text-fill: white;
+}
+
+.dark-theme .button:hover {
+    -fx-background-color: #888;
+}
+
+.dark-theme .label {
+    -fx-text-fill: white;
+}
+
+.light-theme {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: black;
+}
