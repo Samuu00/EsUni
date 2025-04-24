@@ -1,0 +1,33 @@
+.root {
+    -fx-background-color: #f2f2f2;
+    -fx-padding: 15;
+}
+
+.text-area {
+    -fx-font-family: "Consolas";
+    -fx-font-size: 14px;
+    -fx-control-inner-background: #ffffff;
+    -fx-text-fill: #333333;
+    -fx-highlight-fill: #cceeff;
+    -fx-highlight-text-fill: black;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+}
+
+.button {
+    -fx-background-color: linear-gradient(to bottom, #4a90e2, #357abd);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #5aa0f2, #468bcd);
+}
+
+.hbox {
+    -fx-padding: 10 0 10 0;
+}
