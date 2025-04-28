@@ -33,7 +33,7 @@ bool Bilanciato(Nodo* root){
     int hSinistro = altezza(root->sinistro);
     int hDestro = altezza(root->destro);
     if(abs(hSinistro - hDestro) > 1) return false;
-    return true;
+    return Bilanciato(root->sinistro) && Bilanciato(root->destro);
 }
 
 void preOrdine(Nodo* nodo){
