@@ -24,9 +24,7 @@ nodo* inserisci(nodo* root, int val){
 bool controllaSePercorsoSomma0(nodo* root, int x, int somma){
     if(root == nullptr) return false;
 
-    somma += root->val;
-
-    if(root->val == x && somma == 0){
+    if((root->sinistro->val || root->destro->val) == x && somma == 0){
         return true;
     }
     return controllaSePercorsoSomma0(root->sinistro, x, somma) || controllaSePercorsoSomma0(root->destro, x, somma);
