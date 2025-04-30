@@ -45,6 +45,22 @@ void* BarrierThread() {
     return NULL;
 }
 
+void BarrierWithoutTimeout() {
+    pthread_mutex_lock(&mutex);
+    int my_generation = generation;
+    count++;
+    if (count == numThreads) {
+        generation++;
+        count = 0;
+        pthread_cond_broadcast(&cond);
+    } else {
+        while (my_generation == generation) {
+            pthread_cond_wait(&cond, &mutex);
+        }
+    }
+    pthread_mutex_unlock(&mutex);
+}
+
 void* ThreadFunction(void* arg) {
     printf("Inizio\n");
     for (int i = 1; i < 5; i++) {
