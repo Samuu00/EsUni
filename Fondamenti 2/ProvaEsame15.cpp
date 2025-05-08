@@ -25,15 +25,16 @@ class Libreria{
                 libreria[0].copie = copie;
                 size++;
                 return;
-            }else{
-                for(int i = 0; i < size; i++){
-                    if(libreria[i].titolo == titolo){
-                        libreria[i].copie += copie;
-                        break;
-                    }
-                }
-                size++;
             }
+            for(int i = 0; i < size; i++){
+                if(libreria[i].titolo == titolo){
+                    libreria[i].copie += copie;
+                    return;
+                }
+            }
+            libreria[size + 1].titolo = titolo;
+            libreria[size + 1].copie = copie;
+            size++;
         }
         void presta(string& titolo){
             bool trovato = false;
