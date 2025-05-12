@@ -54,6 +54,8 @@ class Magazzino{
                 }
             }
             e = magazzino[categoria][minIndex];
+            magazzino[categoria].erase(magazzino[categoria].begin() + minIndex);
+            return e;
         }
 };
 
