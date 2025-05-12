@@ -91,7 +91,7 @@ vector<string> kParolePiuFrequenti(const vector<string>& Parole, int k){
 
     vector<string> paroleK;
     for(int i = 0; i < k; i++){
-        paroleK.push_back(freqVec[i]. first);
+        paroleK.push_back(freqVec[i].first);
     }
     return paroleK;
 }
