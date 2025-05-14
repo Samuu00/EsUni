@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <algorithm>
 using namespace std;
 
 
@@ -62,9 +63,9 @@ vector<int> numeriKpiuFrequenti(const vector<int>& dati, int k){
     }
 
     vector<pair<int, int>> kFreq(freq.begin() + freq.end());
-    sort(kFreq.begin() + kFreq.end() [](pair<int, int> a, pair<int, int> b)){
+    sort(kFreq.begin(), kFreq.end() [](pair<int, int> a, pair<int, int> b){
         return a.second < b.second;
-    }
+    });
 
     vector<int> kFreqFinal;
     for(int i = 0; i < k; i++){
