@@ -1,7 +1,7 @@
 #include <iostream>
 #include <map>
 #include <vector>
-#include <sort>
+#include <algorithm>
 using namespace std;
 
 
