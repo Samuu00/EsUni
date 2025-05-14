@@ -85,9 +85,9 @@ vector<string> kParolePiuFrequenti(const vector<string>& Parole, int k){
     }
     
     vector<pair<string, int>> freqVec(paroleFrequenze.begin() + paroleFrequenze.end());
-    sort(freqVec.begin() + freqVec.end(), [](pair<string, int>& a, pair<string, int>& b)){
+    sort(freqVec.begin(), freqVec.end(), [](pair<string, int>& a, pair<string, int>& b){
         return a.second > b.second;
-    }
+    });
 
     vector<string> paroleK;
     for(int i = 0; i < k; i++){
