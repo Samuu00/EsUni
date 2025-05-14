@@ -1,0 +1,32 @@
+.root {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-background-color: #f4f4f4;
+}
+
+.text-field {
+    -fx-background-radius: 8;
+    -fx-background-color: white;
+    -fx-border-radius: 8;
+    -fx-border-color: #cccccc;
+    -fx-padding: 5;
+    -fx-font-size: 14px;
+}
+
+.button {
+    -fx-background-radius: 8;
+    -fx-background-color: #007acc;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+    -fx-padding: 5 10;
+}
+
+.button:hover {
+    -fx-background-color: #005f99;
+}
+
+.hbox {
+    -fx-padding: 10;
+    -fx-spacing: 10;
+    -fx-background-color: #eaeaea;
+}
