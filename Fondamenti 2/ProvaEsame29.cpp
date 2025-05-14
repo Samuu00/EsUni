@@ -79,7 +79,7 @@ vector<string> filtraPerPrefisso(const vector<string>& parole, const string& pre
             risultato.push_back(s);
         }
     }
-    sort(risultato.begin() + risultato.end());
+    sort(risultato.begin(), risultato.end());
     return risultato;
 }
 
@@ -90,7 +90,7 @@ vector<string> filtraPerSuffisso(const vector<string>& parole, const string& suf
             risultato.push_back(s);
         }
     }
-    sort(risultato.begin() + risultato.end());
+    sort(risultato.begin(), risultato.end());
     return risultato;
 }
 
