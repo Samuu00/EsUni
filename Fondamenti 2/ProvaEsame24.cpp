@@ -68,15 +68,16 @@ class Grafo{
             grafo[u].push_back(v);
         }
 
-        bool hasCycle(int p, vector<bool>& visitato, vector<bool>& inRicorsione){
-           visitato[p] = true;
-           inRicorsione[p] = true;
-           for(int v : grafo[p]){
-                if(visitato[v]) continue;
-                if(hasCycle(v, visitato, inRicorsione)) return true;
-                if(inRicorsione[v]) return true;
-           }
-           inRicorsione[p] = false;
-           return false;
+        bool hasCycle(int p, vector<bool>& visitato, vector<bool>& inRicorsione, vector<vector<int>>& grafo) {
+            visitato[p] = true;
+            inRicorsione[p] = true;
+
+            for (int v : grafo[p]) {
+                if (inRicorsione[v]) return true; // ciclo rilevato
+                if (!visitato[v] && hasCycle(v, visitato, inRicorsione, grafo)) return true;
+            }
+
+            inRicorsione[p] = false;
+            return false;
         }
 };
