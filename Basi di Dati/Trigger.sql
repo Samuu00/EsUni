@@ -117,5 +117,63 @@ BEGIN
 END;
 
 
+/* 1 */
+CREATE TRIGGER addPoint
+AFTER INSERT ON ordini
+FOR EACH ROW
+BEGIN
+    UPDATE clienti
+    SET punti_fedelta = punti_fedelta + FLOOR(NEW.importo / 10);
+    WHERE id_cliente = NEW_id_cliente;
+END;
+
+
+/* 2 */
+CREATE TRIGGER blockModify
+BEFORE UPDATE ON dipendenti
+FOR EACH ROW
+BEGIN
+    IF OLD.email != NEW.email THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'NON AMMESSA MODIFICA';
+    END IF;
+END;
+
+
+/* 3 */
+CREATE TRIGGER changeLog
+AFTER UPDATE ON impiegati
+FOR EACH ROW
+BEGIN
+    IF OLD.stipendio != NEW.stipendio THEN
+        INSERT INTO log_stipendi(id_impiegato, stipendio_vecchio, stipendio_nuovo, data_modifica)
+        VALUES(NEW.id, OLD.stipendio, NEW.stipendio, CURRENT_TIMESTAMP);
+END;
+    
+
+/* 1 */
+CREATE TRIGGER archivioDipe
+AFTER DELETE ON dipendenti
+FOR EACH ROW
+BEGIN
+    INSERT INTO archivio_dipendenti(id_dipendente, nome, cognome, ruolo, data_eliminazione)
+    VALUES(OLD.id, OLD.nome, OLD.cognome, OLD.ruolo, CURRENT_TIMESTAMP);
+END;
+
+
+/* 2 */
+CREATE TRIGGER journey
+BEFORE INSERT ON prenotazioni
+FOR EACH ROW
+BEGIN
+    IF NEW.data_partenza < CURRENT_DATE THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'NON AMMESSA PRENOTAZIONE';
+    END IF;
+END;
+
+
+
+
 
     
