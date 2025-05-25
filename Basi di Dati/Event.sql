@@ -80,3 +80,10 @@ DO
     INSERT INTO log_settimanali(data_log, tipo_log, descrizione_log)
     SELECT data_log, tipo_log, descrizione_log FROM log_utenti WHERE data_log BETWEEN NOW() - INTERVAL 7 DAY AND NOW();
 
+/* 1 */
+CREATE EVENT log_access
+ON SCHEDULE EVERY 1 WEEK
+STARTS TIMESTAMP(CURRENT_DATE + INTERVAL 1 WEEK + INTERVAL '03:00:00' HOUR_SECOND)
+DO 
+    DELETE FROM log_accessi WHERE data_accesso <= NOW() - INTERVAL 90 DAY;
+
