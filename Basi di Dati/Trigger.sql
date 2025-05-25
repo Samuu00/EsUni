@@ -173,6 +173,33 @@ BEGIN
 END;
 
 
+/* 1 */
+CREATE TRIGGER email
+BEFORE INSERT ON utenti
+FOR EACH ROW
+BEGIN
+    DECLARE email_count INT;
+    
+    SELECT COUNT(*) INTO email_count
+    FROM utenti
+    WHERE email = NEW.email;
+
+    IF email_count > 0 THEN 
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'EMAIL GIÀ REGISTRATA';
+    END IF;
+END;
+
+/* 2 */
+CREATE TRIGGER log
+AFTER DELETE ON dipendenti
+FOR EACH ROW
+BEGIN
+    INSERT INTO archivio_dipendenti(id_dipendente, nome, cognome, ruolo, data_eliminazione)
+    VALUES(OLD.id, OLD.nome, OLD.cognome, OLD.ruolo, CURRENT_TIMESTAMP);
+END;
+
+
 
 
 
