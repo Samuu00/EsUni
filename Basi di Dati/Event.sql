@@ -87,3 +87,17 @@ STARTS TIMESTAMP(CURRENT_DATE + INTERVAL 1 WEEK + INTERVAL '03:00:00' HOUR_SECON
 DO 
     DELETE FROM log_accessi WHERE data_accesso <= NOW() - INTERVAL 90 DAY;
 
+
+/* 1 */
+CREATE EVENT archivia_fatture
+ON SCHEDULE EVERY 1 MONTH
+STARTS TIMESTAMP(INTERVAL '02:00:00' HOUR_SECOND)
+DO
+BEGIN
+
+    INSERT INTO fatture_archiviate(id_fattura, data_fattura, totale_fattura, stato_fattura)
+    SELECT id_fattura, data_fattura, totale_fattura, stato_fattura FROM fatture WHERE data_fattura <= NOW() - INTERVAL 1 YEAR AND stato_fattura = 'pagata';
+
+    DELETE FROM fatture WHERE data_fattura <= NOW() - INTERVAL 1 YEAR AND stato_fattura = 'pagata';
+
+END;
