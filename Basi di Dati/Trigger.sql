@@ -200,6 +200,24 @@ BEGIN
 END;
 
 
+/* 1 */
+CREATE TRIGGER aggSaldo
+AFTER INSERT ON pagamenti
+FOR EACH ROW
+BEGIN
+    DECLARE new_saldo DECIMAL(10, 2);
+
+    UPDATE conti WHERE id = NEW.id_conto SET saldo = saldo - NEW.importo;
+
+    SELECT saldo INTO new_saldo FROM conti WHERE id = NEW.id_conto;
+
+    IF new_saldo < 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'SALDO INSUFFICENTE';
+    END IF;
+END;
+
+
 
 
 
