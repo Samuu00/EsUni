@@ -218,6 +218,22 @@ BEGIN
 END;
 
 
+/* 1 */
+CREATE TRIGGER ordini
+BEFORE INSERT ON ordini
+FOR EACH ROW
+BEGIN
+    DECLARE ordine_count INT;
+
+    SELECT COUNT(*) INTO ordine_count FROM ordini
+    WHERE id_cliente = NEW.id_cliente AND stato_pagamento = 'non pagato';
+
+    IF ordine_count >= 3 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'ORDINI MAX 3 NON PAGATI';
+    END IF;
+
+END;
 
 
 
