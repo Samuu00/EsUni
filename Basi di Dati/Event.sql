@@ -101,3 +101,15 @@ BEGIN
     DELETE FROM fatture WHERE data_fattura <= NOW() - INTERVAL 1 YEAR AND stato_fattura = 'pagata';
 
 END;
+
+
+/* 5 */
+CREATE EVENT archivia_prodotti
+ON SCHEDULE EVERY 15 DAY
+DO 
+BEGIN
+    INSERT INTO prodotti_archiviati(id_prodotto, nome_prodotto, prezzo, descrizione_prodotto, ultima_venduta)
+    SELECT id_prodotto, nome_prodotto, prezzo, descrizione_prodotto, ultima_venduta FROM prodotti WHERE ultima_venduta <= NOW() - INTERVAL 6 MONTH;
+
+    DELETE FROM prodotti WHERE ultima_venduta <= NOW() - INTERVAL 6 MONTH;
+END;
