@@ -48,10 +48,8 @@ class storicoOperazioni{
             map<unsigned, double> tempoMed;
             map<unsigned, int> freq;
             for(int i = 0; i < size; i++){
-                if(tempoMed.find(storico[i].cod_ope) != tempoMed.end()){
-                    freq[storico[i].cod_ope]++;
-                    tempoMed[storico[i].cod_ope] += storico[i].temp_esec;
-                }
+                freq[storico[i].cod_ope]++;
+                tempoMed[storico[i].cod_ope] += storico[i].temp_esec;
             }
             for(auto& it : tempoMed){
                 tempoMed[it.first] = tempoMed[it.first] / freq[it.first];
