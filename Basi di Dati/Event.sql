@@ -113,3 +113,27 @@ BEGIN
 
     DELETE FROM prodotti WHERE ultima_venduta <= NOW() - INTERVAL 6 MONTH;
 END;
+
+
+/* 5 */
+CREATE EVENT archivia_utenti
+ON SCHEDULE EVERY 10 DAY
+DO 
+BEGIN 
+    INSERT INTO utenti_archiviati(id_utente, nome_utente, cognome_utente, email_utente, ultima_attivita)
+    SELECT id_utente, nome_utente, cognome_utente, email_utente, ultima_attivita 
+    FROM utenti
+    WHERE ultima_attivita <= NOW() - INTERVAL 180 DAY;
+
+    DELETE FROM utenti WHERE ultima_attivita <= NOW() - INTERVAL 180 DAY;
+END;
+
+
+/* 5 */
+CREATE EVENT premium
+ON SCHEDULE EVERY 2 MONTH
+DO
+BEGIN
+    UPDATE clienti SET stato_cliente = 'premium' 
+    WHERE num_ordini >= 10 AND data_abbonamento BETWEEN NOW() - INTERVAL 6 MONTH AND NOW();
+END;
