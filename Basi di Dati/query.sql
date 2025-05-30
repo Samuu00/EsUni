@@ -70,7 +70,7 @@ HAVING COUNT(sconto) > 0;
 SELECT id_cliente, clienti.nome FROM clienti
 JOIN ordini ON clienti.id = ordini.id_cliente
 GROUP BY id_cliente
-HAVING COUNT (ordini.id_ordine) > 5 AND HAVING SUM(ordini.tot_ordine) > 1000;
+HAVING COUNT (ordini.id_ordine) > 5 AND SUM(ordini.tot_ordine) > 1000;
 
 
 SELECT id_prodotto, SUM(quantita) AS tot_quantita FROM ordini_dettagli
