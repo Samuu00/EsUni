@@ -236,5 +236,46 @@ BEGIN
 END;
 
 
+/* 4 */
+CREATE TRIGGER ordini
+BEFORE INSERT ON ordini
+FOR EACH ROW
+BEGIN
+    DECLARE num_ordini INT;
+
+    SELECT COUNT(*) INTO num_ordini FROM ordini 
+    WHERE id_cliente = NEW.id_cliente AND stato_ordine = 'in lavorazione';
+
+    IF num_ordini >= 2 THEN
+        SQLSTATE SIGNAL '45000'
+        SET MESSAGE_TEXT = 'ORDINI MAX 2 IN LAVORAZIONE';
+    END IF;
+END;
+
+
+/* 4 */
+CREATE TRIGGER recensioni
+BEFORE INSERT ON recensioni
+FOR EACH ROW
+BEGIN
+    DECLARE num_rec INT;
+    DECLARE id_cliente INT;
+
+    SELECT COUNT(*) INTO num_rec FROM recensioni
+    WHERE ordini.id_ordine = NEW.id_ordine
+
+    IF num_rec > 0 THEN
+        SQLSTATE SIGNAL '45000'
+        SET MESSAGE_TEXT = 'RECENSIONE PER ORDINE GIA PRESENTE';
+    ELSE
+        SELECT id_cliente INTO id_cliente FROM ordini
+        WHERE id_ordine = NEW.id_ordine;
+    
+        UPDATE clienti SET num_recensioni = num_recensioni + 1 WHERE id = id_cliente;
+    
+    END IF;
+END;
+
+
 
     
