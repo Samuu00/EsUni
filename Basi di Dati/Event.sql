@@ -137,3 +137,14 @@ BEGIN
     UPDATE clienti SET stato_cliente = 'premium' 
     WHERE num_ordini >= 10 AND data_abbonamento BETWEEN NOW() - INTERVAL 6 MONTH AND NOW();
 END;
+
+
+/* 5 */
+DELIMITER $$
+CREATE EVENT notifiche
+ON SCHEDULE EVERY 1 WEEK
+DO
+BEGIN
+    DELETE FROM notifiche WHERE data_notifica <= NOW() - INTERVAL 30 DAY AND stato_notifica = 'letta';
+END;
+DELIMITER;
