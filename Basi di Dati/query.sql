@@ -79,6 +79,25 @@ ORDER BY tot_quantita DESC
 LIMIT 3;
 
 
-SELECT * FROM ordini
+SELECT id_ordine FROM ordini_dettagli
+GROUP BY id_ordine
+HAVING COUNT(DISTINCT id_prodotto) > 5;
+
+
+SELECT id_cliente, clienti.nome FROM clienti
+JOIN ordini ON clienti.id = ordini.id_cliente
+WHERE data_ordine BETWEEN '2024-01-01' AND '2024-12-31'
+GROUP BY cliente.id, clienti.nome
+HAVING COUNT(*) > 3 AND SUM(tot_ordine) > (SELECT AVG(tot_ordine) FROM ordini);
+
+
+SELECT id_prodotto, SUM(ordini_dettagli.quantita) AS tot_quantita FROM prodotti JOIN
+ordini_dettagli ON prodotti.id = ordini_dettagli.id_prodotto
+WHERE data_vendita BETWEEN NOW() AND NOW() + INTERVAL 1 MONTH
+GROUP BY id_prodotto
+ORDER BY tot_quantita DESC
+LIMIT 5;
+
+SELECT id_ordine FROM ordini_dettagli
 GROUP BY id_ordine
 HAVING COUNT(DISTINCT id_prodotto) > 5;
