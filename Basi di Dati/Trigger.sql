@@ -277,5 +277,25 @@ BEGIN
 END;
 
 
+/* 4 */
+CREATE TRIGGER ordini
+BEFORE INSERT ON ordini_dettagli
+FOR EACH ROW
+BEGIN
+    DECLARE disp INT;
+
+    SELECT quantita INTO disp FROM prodotti 
+    WHERE id_prodotto = NEW.id_prodotto;
+
+    IF disp < NEW.quantita THEN
+        SQLSTATE SIGNAL '45000'
+        SET MESSAGE_TEXT = 'QUANTITA PRODOTTO INSUFFICIENTE';
+    ELSE
+        UPDATE prodotti SET quantita = quantita - NEW.quantita 
+        WHERE id_prodotto = NEW.id_prodotto;
+    END IF;
+
+END;
+
 
     
