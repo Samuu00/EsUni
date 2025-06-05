@@ -148,3 +148,10 @@ BEGIN
     DELETE FROM notifiche WHERE data_notifica <= NOW() - INTERVAL 30 DAY AND stato_notifica = 'letta';
 END;
 DELIMITER;
+
+
+/* 5 */
+CREATE EVENT sessioni
+ON SCHEDULE EVERY 1 WEEK
+DO
+    DELETE FROM sessioni WHERE data_sessione <= NOW() - INTERVAL 30 DAY AND stato_sessione = 'chiusa';
