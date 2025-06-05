@@ -8,3 +8,32 @@ R1 = ORDINI_DETTAGLI JOIN id_prodotto = id (PROJ prezzo, quantita, prezzo * quan
 R2 = ORDINI JOIN id = id_ordine (SEL SUM(spesa)→totale R1)  
 R3 = CLIENTI JOIN id = id_cliente R2  
 R4 = PROJ nome (SEL totale > 1000 R3)
+
+
+es1.
+R1 = ORDINI_DETTAGLI JOIN id_prodotto = id (SEL categoria = 'elettronica'(PRODOTTI))
+R2 = ORDINI JOIN id = id_ordine R1
+PROJ nomeC(DEN nomeC <- nome(CLIENTI) JOIN id = id_cliente R2)
+
+es2.
+R1 = PRODOTTI JOIN id = id_prodotto (SEL quantita > 100(ORDINI_DETTAGLI))
+PROJ id_prodotto(R1)
+
+
+es4.
+R1 = PROJ id(CLIENTI)
+R2 = PROJ id_cliente(ORDINI)
+R3 = R1 - R2
+
+es5.
+R1 = PROJ id SEL(citta = 'Milano'(CLIENTI))
+R2 = PROJ idC(DEN idC <- id_cliente(ORDINI) JOIN idC = id(R1))
+
+
+es6.
+R1 = PROJ id(SEL categoria = 'Accessori'(PRODOTTI))
+R2 = PROJ id_cliente, id_prodotto(DEN idC <- id CLIENTI JOIN idC = id_cliente(ORDINI)) JOIN id = id_ordine (ORDINI_DETTAGLI)
+R3 = PROJ id_cliente, id(PROJ id_cliente(CLIENTI) * R1)
+R4 = R3 - R2
+R5 = PROJ id_cliente(CLIENTI) - PROJ id_cliente(R4)
+PROJ nome CLIENTI JOIN id = id_cliente R5
