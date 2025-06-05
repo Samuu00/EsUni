@@ -298,4 +298,15 @@ BEGIN
 END;
 
 
-    
+/* 4 */
+CREATE TRIGGER spedizione
+BEFORE INSERT ON spedizioni
+FOR EACH ROW
+BEGIN
+    IF NEW.stato != 'spedito' THEN
+        SET NEW.stato = 'spedito'
+    ELSE
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'SPEDIZIONE GIA SPEDITA';
+    END IF;
+END;    
