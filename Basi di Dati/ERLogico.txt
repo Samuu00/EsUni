@@ -1,0 +1,93 @@
+Entità principali:
+
+Persona
+
+Codice Fiscale (PK)
+Nome
+Data di nascita
+Titolo di studio
+Istituto rilasciante titolo
+Direttore (sottoclasse di Persona)
+Anzianità (anni)
+Contabile (sottoclasse di Persona)
+Qualifica
+Supervisore (sottoclasse di Persona)
+Consulente Esterno (sottoclasse di Persona)
+
+
+Ufficio
+
+Nome (PK)
+Edificio
+Direttore (FK → Persona)
+Pratica
+Numero (PK parziale)
+Anno (PK parziale)
+Descrizione
+Scaffale
+Ufficio affidatario (FK)
+
+
+Documento
+
+Numero Progressivo (PK)
+Pratica (FK, relazione debole)
+Descrizione
+Supervisione (relazione tra Supervisore e Pratica)
+CodiceFiscale_Supervisore (FK)
+Pratica_Numero + Anno (FK)
+Data inizio
+Data fine
+
+
+Consulenza
+
+Consulente (FK)
+Pratica (FK)
+Data
+Descrizione
+
+
+✅ Schema Logico Relazionale
+Tabelle:
+
+Persona(CodFisc PK, Nome, DataNascita, TitoloStudio, Istituto)
+
+Direttore(CodFisc PK, Anzianità)
+↳ FK: CodFisc → Persona
+
+Contabile(CodFisc PK, Qualifica)
+↳ FK: CodFisc → Persona
+
+Supervisore(CodFisc PK)
+↳ FK: CodFisc → Persona
+
+ConsulenteEsterno(CodFisc PK)
+↳ FK: CodFisc → Persona
+
+Ufficio(Nome PK, Edificio, DirettoreCodFisc FK)
+↳ FK: DirettoreCodFisc → Direttore
+
+AfferenzaContabile(CodFisc FK, NomeUfficio FK)
+↳ PK: (CodFisc, NomeUfficio)
+↳ FK: CodFisc → Contabile
+↳ FK: NomeUfficio → Ufficio
+
+Pratica(Numero, Anno, Descrizione, Scaffale, NomeUfficio FK)
+↳ PK: (Numero, Anno)
+↳ FK: NomeUfficio → Ufficio
+
+Documento(NumeroProgressivo, NumeroPratica, AnnoPratica, Descrizione)
+↳ PK: (NumeroProgressivo, NumeroPratica, AnnoPratica)
+↳ FK: (NumeroPratica, AnnoPratica) → Pratica
+
+Supervisione(CodFiscSupervisore, NumeroPratica, AnnoPratica, DataInizio, DataFine)
+↳ PK: (CodFiscSupervisore, NumeroPratica, AnnoPratica)
+↳ FK: CodFiscSupervisore → Supervisore
+↳ FK: (NumeroPratica, AnnoPratica) → Pratica
+
+Consulenza(CodFiscConsulente, NumeroPratica, AnnoPratica, DataDeposito, Descrizione)
+↳ PK: (CodFiscConsulente, NumeroPratica, AnnoPratica, DataDeposito)
+↳ FK: CodFiscConsulente → ConsulenteEsterno
+↳ FK: (NumeroPratica, AnnoPratica) → Pratica
+

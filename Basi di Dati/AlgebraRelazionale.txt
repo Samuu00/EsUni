@@ -1,0 +1,10 @@
+R1 = ORDINI_DETTAGLI JOIN id_prodotto = id(SEL nome = 'laptop'(PRODOTTI))
+R2 = ORDINI JOIN id = id_ordine R2
+
+PROJ nomeC(DEN nomeC <- nome(CLIENTI) JOIN id = id_cliente R2)
+
+
+R1 = ORDINI_DETTAGLI JOIN id_prodotto = id (PROJ prezzo, quantita, prezzo * quantita -> spesa (PRODOTTI))  
+R2 = ORDINI JOIN id = id_ordine (SEL SUM(spesa)→totale R1)  
+R3 = CLIENTI JOIN id = id_cliente R2  
+R4 = PROJ nome (SEL totale > 1000 R3)
