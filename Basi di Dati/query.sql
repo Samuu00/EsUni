@@ -101,3 +101,24 @@ LIMIT 5;
 SELECT id_ordine FROM ordini_dettagli
 GROUP BY id_ordine
 HAVING COUNT(DISTINCT id_prodotto) > 5;
+
+
+SELECT id_cliente, clienti.nome FROM clienti
+JOIN ordini ON clienti.id = ordini.id_cliente
+WHERE data_ordine <= NOW() - INTERVAL 6 MONTH
+GROUP BY id_cliente, clienti.nome
+HAVING SUM(tot_ordine) > 1000;
+
+
+SELECT id_prodotto FROM prodotti
+JOIN ordini_dettagli ON prodotti.id = ordini_dettagli.id_prodotto
+WHERE data_vendita BETWEEN NOW() AND NOW() + INTERVAL 1 MONTH
+GROUP BY id_prodotto
+HAVING COUNT(*) > (SELECT COUNT(id_prodotto) FROM ordini_dettagli WHERE data_vendita <= NOW() - INTERVAL 1 MONTH AND ordini_dettagli.id_prodotto = prodotti.id);
+
+
+SELECT id_prodotto, MAX(ordini_dettagli.quantita) AS max_quantita FROM prodotti
+JOIN ordini_dettagli ON prodotti.id = ordini_dettagli.id_prodotto
+JOIN clienti ON ordini_dettagli.id_cliente = clienti.id
+GROUP BY id_cliente
+ORDER BY max_quantita DESC
