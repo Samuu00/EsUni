@@ -310,3 +310,20 @@ BEGIN
         SET MESSAGE_TEXT = 'SPEDIZIONE GIA SPEDITA';
     END IF;
 END;    
+
+
+/* 2 */
+CREATE TRIGGER block_order
+BEFORE INSERT ON ordini
+FOR EACH ROW
+BEGIN
+    DECLARE NumOrd INT;
+
+    SELECT COUNT(*) INTO NumOrd FROM ordini 
+    WHERE id_cliente = NEW.id_cliente AND stato = 'sospeso';
+
+    IF NumOrd > 0 THEN
+        SQLSTATE SIGNAL '45000'
+        SET MESSAGE_TEXT = 'UN ORDINE GIA IN SOSPESO';
+    END IF;
+END;
