@@ -122,3 +122,21 @@ JOIN ordini_dettagli ON prodotti.id = ordini_dettagli.id_prodotto
 JOIN clienti ON ordini_dettagli.id_cliente = clienti.id
 GROUP BY id_cliente
 ORDER BY max_quantita DESC
+
+
+SELECT clienti.id FROM clienti 
+JOIN ordini ON clienti.id = ordini.id_cliente
+JOIN ordini_dettagli ON ordini.id = ordini_dettagli.id_ordine
+JOIN prodotti ON ordini_dettagli.id_prodotto = prodotti.id
+WHERE prodotti.categoria = 'Informatica';
+
+
+SELECT id_prodotto, SUM(quantita) INTO max_quantita FROM ordini_dettagli
+GROUP BY id_prodotto
+ORDER BY max_quantita DESC
+LIMIT 3;
+
+
+SELECT clienti.id FROM clienti
+LEFT JOIN ordini ON clienti.id = ordini.id_cliente
+WHERE ordini.id IS NULL;
