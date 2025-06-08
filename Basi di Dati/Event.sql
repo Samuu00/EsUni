@@ -155,3 +155,10 @@ CREATE EVENT sessioni
 ON SCHEDULE EVERY 1 WEEK
 DO
     DELETE FROM sessioni WHERE data_sessione <= NOW() - INTERVAL 30 DAY AND stato_sessione = 'chiusa';
+
+
+/* 4 */
+CREATE EVENT record
+ON SCHEDULE EVERY 1 WEEK
+DO  
+    DELETE FROM Sessioni WHERE data_creazione <= NOW() - INTERVAL 30 DAY AND stato = 'chiusa';
