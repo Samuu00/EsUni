@@ -37,3 +37,67 @@ R3 = PROJ id_cliente, id(PROJ id_cliente(CLIENTI) * R1)
 R4 = R3 - R2
 R5 = PROJ id_cliente(CLIENTI) - PROJ id_cliente(R4)
 PROJ nome CLIENTI JOIN id = id_cliente R5
+
+
+es1.
+R1 = PROJ id(SEL categoria = 'elettronica'(PRODOTTI))
+R2 = ORDINI_DETTAGLI JOIN id_prodotto = id(R1)
+R3 = ORDINI JOIN id = id_ordine(R2)
+PROJ idC(DEN idC <- id(CLIENTE) JOIN idC = id_cliente(R3))
+
+
+es2.
+R1 = PROJ id (SEL citta = 'Roma'(CLIENTI))
+R2 = ORDINI JOIN id_cliente = id(R1)
+R3 = ORDINI_DETTAGLI JOIN id_ordine = id(R2)
+PROJ idP(DEN idP <- id(PRODOTTI) JOIN idP = id_prodotto(R3))
+
+
+es3.
+R1 = SEL(nome = 'Mouse'(PRODOTTI))
+R2 = ORDINI_DETTAGLI JOIN id_prodotto = id(R1)
+R3 = ORDINI JOIN id = id_ordine(R2)
+R4 = PROJ id_cliente(CLIENTI) - PROJ id_cliente(R3)
+
+
+es4.
+R1 = SEL id_prodotto1 != id_prodotto2(DEN id_prodotto1 <- id_prodotto, OD1 <- ORDINI_DETTAGLI) JOIN (DEN id_prodotto2 <- id_prodotto, OD2 <- ORDINI_DETTAGLI)
+R2 = R1 JOIN id_ordine = id(ORDINI)
+R3 = PROJ id_cliente(R2)
+
+
+es1.
+R1 = SEL(catrgoria = 'Telefonia'(PRODOTTI))
+R2 = ORDINI_DETTAGLI = id_prodotto = id(R1)
+R3 = ORDINI JOIN id = id_ordine(R2)
+R4 = CLIENTI JOIN id = id_cliente(R3)
+PROJ nome, id(CLIENTI) - PROJ nome, id(R4)
+
+
+es2.
+R1 = SEL(citta = 'Milano'(CLIENTI))
+R2 = ORDINI JOIN id_cliente = id(R1)
+R3 = ORDINI_DETTAGLI JOIN id_ordine = id(R2)
+PROJ idP(PRODOTTI) / PROJ idP(R3)
+
+
+es3.
+R1 = SEL id_prodotto1 != id_prodotto2 != id_prodotto3(DEN id_prodotto1 <- id_prodotto, OD1 <- ORDINI_DETTAGLI) JOIN (DEN id_prodotto2 <- id_prodotto, OD2 <- ORDINI_DETTAGLI) 
+     JOIN (DEN id_prodotto3 <- id_prodotto, OD3 <- ORDINI_DETTAGLI)
+R2 = R1 JOIN id_ordine = id(ORDINI)
+R3 = PROJ id_cliente(R2)
+
+
+es1.
+R1 = PROJ id(SEL categoria = 'Accessori'(PRODOTTI))
+R2 = PROJ id_cliente, id_prodotto ORDINI_DETTAGLI JOIN id_ordine = id(ORDINI)
+
+TOT = R2 / R1
+
+
+es2.
+R1 = SEL categoria = 'telefonia'(PRODOTTI)
+R2 = ORDINI_DETTAGLI JOIN id_prodotto = id(R1)
+R3 = ORDINI JOIN id = id_ordine(R2)
+R4 = CLIENTI JOIN id = id_cliente(R3)
+R5 = PROJ nome, id(CLIENTI) - PROJ nome, id(R4)
