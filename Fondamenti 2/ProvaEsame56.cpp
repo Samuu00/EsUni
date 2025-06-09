@@ -13,6 +13,7 @@ struct appuntamento{
     unsigned orario;
     bool completato;
 
+    appuntamento() : paziente(""), giorno(""), orario(0), completato(false) {}
     appuntamento(string p, string g, unsigned o, bool c) : paziente(p), giorno(g), orario(o), completato(c) {}
 };
 class agendaMedica{
@@ -26,6 +27,10 @@ class agendaMedica{
             this->maxSize = 100;
             this->size = 0;
             this->appuntamenti = new appuntamento[this->maxSize];
+
+            for(int i = 0; i < this->maxSize; i++){
+                this->appuntamenti[i] = appuntamento("", "", 0, false);
+            }
         }
 
         ~agendaMedica(){
