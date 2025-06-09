@@ -162,3 +162,11 @@ CREATE EVENT record
 ON SCHEDULE EVERY 1 WEEK
 DO  
     DELETE FROM Sessioni WHERE data_creazione <= NOW() - INTERVAL 30 DAY AND stato = 'chiusa';
+
+
+/* 3 */
+CREATE EVENT elimina_record
+ON SCHEDULE EVERY 1 WEEK
+STARTS CURRENT_DATE + INTERVAL 3 HOUR
+DO 
+    DELETE FROM carrelli WHERE data_record <= NOW() - INTERVAL 14 DAY AND stato = 'Abbandonato';
