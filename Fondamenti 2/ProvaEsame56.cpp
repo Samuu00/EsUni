@@ -191,8 +191,8 @@ class Grafo{
         map<string, int> percorsi(){
             map<string, int> ris;
             vector<bool> visitato(n, false);
-            int minPari = percorsoMinimoPari(0, n-1, visitato, 0, INT_MAX);
-            int minDisp = percorsoMinimoDispari(0, n-1, visitato, 0, INT_MAX);
+            int minPari = percorsoMinimoPari(0, n-1, visitato, 0);
+            int minDisp = percorsoMinimoDispari(0, n-1, visitato, 0);
             if(minPari != INT_MAX) ris["Pari"] = minPari;
             if(minDisp != INT_MAX) ris["Dispari"] = minDisp;
             return ris;
