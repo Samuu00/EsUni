@@ -140,3 +140,23 @@ LIMIT 3;
 SELECT clienti.id FROM clienti
 LEFT JOIN ordini ON clienti.id = ordini.id_cliente
 WHERE ordini.id IS NULL;
+
+
+SELECT cliente.id, cliente.nome FROM cliente
+JOIN ordini ON cliente.id = ordini.id_cliente
+GROUP BY cliente.id, cliente.nome
+HAVING AVG(ordini.totale) > (SELECT AVG(ordini.totale) FROM ordini);
+
+
+SELECT id_prodotto, SUM(ordini_dettagli.quantita * prodotti.prezzo) AS totale FROM prodotti
+JOIN ordini_dettagli ON prodotti.id = ordini_dettagli.id_prodotto
+GROUP BY id_prodotto
+ORDER BY totale DESC
+LIMIT 5;
+
+
+SELECT cliente.id FROM clienti
+WHERE cliente.id NOT IN (SELECT id_cliente FROM ordini_dettagli 
+                        JOIN ordini ON ordini_dettagli.id_ordine = ordini.id
+                        JOIN prodotti ON ordini_dettagli.id_prodotto = prodotti.id
+                        WHERE prodotti.categoria = 'Abbigliamento');
