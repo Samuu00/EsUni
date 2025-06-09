@@ -101,3 +101,23 @@ R2 = ORDINI_DETTAGLI JOIN id_prodotto = id(R1)
 R3 = ORDINI JOIN id = id_ordine(R2)
 R4 = CLIENTI JOIN id = id_cliente(R3)
 R5 = PROJ nome, id(CLIENTI) - PROJ nome, id(R4)
+
+
+es5.
+R1 = PROJ id(SEL categoria = 'Componenti PC'(PRODOTTI))
+R2 = PROJ id_cliente, id_prodotto ORDINI_DETTAGLI JOIN id_ordine = id(ORDINI)
+R3 = R2 / R1
+R4 = PROJ id_cliente, nome CLIENTI JOIN id = id_cliente(R3)
+
+
+es6.
+R1 = PROJ id_cliente(SEL anno(data) = '2023'(ORDINI))
+R2 = PROJ id_cliente(SEL anno(data) = '2024'(ORDINI))
+R3 = R1 - R2
+PROJ id, nome CLIENTI JOIN id = id_cliente(R3)
+
+
+es7.
+R1 = SEL od1 = od2, id_prodotto1 != id_prodotto2(DEN id_prodotto1 <- id_prodotto, od1 <- ORDINI_DETTAGLI) JOIN (DEN id_prodotto2 <- id_prodotto, od2 <- ORDINI_DETTAGLI)
+R2 = R1 JOIN id_ordine = id(ORDINI)
+PROJ id, nome CLIENTI JOIN id = id_cliente(R2)
