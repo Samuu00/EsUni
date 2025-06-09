@@ -327,3 +327,21 @@ BEGIN
         SET MESSAGE_TEXT = 'UN ORDINE GIA IN SOSPESO';
     END IF;
 END;
+
+
+/* 2 */
+CREATE TRIGGER prezzi
+BEFORE UPDATE ON prodotti
+FOR EACH ROW
+BEGIN
+    IF NEW.prezzo < 0 THEN
+        SQLSTATE SIGNAL '45000'
+        SET MESSAGE_TEXT = 'PREZZO NON POSITIVO';
+END;
+CREATE TRIGGER log_prezzi
+AFTER UPDATE ON prodotti
+FOR EACH ROW
+BEGIN
+    INSERT INTO log_prezzi(id_prodotto, nuovo_prezzo, vecchio_prezzo, data)
+    VALUES (NEW.id_prodotto, NEW.prezzo, OLD.prezzo, NOW());
+END;
