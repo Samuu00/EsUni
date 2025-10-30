@@ -19,8 +19,7 @@ class Grafo {
         }
 
         void aggiungiArco(int i, int j) {
-            if (i < 0 || j < 0 || i >= numNodi || j >= numNodi) 
-                throw out_of_range("Indice nodo non valido");
+            if (i < 0 || j < 0 || i >= numNodi || j >= numNodi) throw out_of_range("Indice nodo non valido");
             if (!adj[i][j]) {
                 adj[i][j] = true;
                 numArchi++;

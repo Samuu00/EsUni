@@ -28,7 +28,6 @@ class Grafo {
         }
 
 
-
         bool f(){
             if(g.m() % 2 != 0) return false;
 

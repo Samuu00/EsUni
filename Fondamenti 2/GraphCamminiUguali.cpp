@@ -2,6 +2,7 @@
 #include <vector>
 #include <queue>
 #include <map>
+#include <unordered_map>
 using namespace std;
 
 class Grafo {
@@ -31,11 +32,10 @@ class Grafo {
             while(!q.empty()){
                 int curr = q.front(); q.pop();
 
-                if(curr == a) return lunghCamm[curr];
-
                 for(int v : adj[curr]){
                     if(visitati[v]) continue;
                     lunghCamm[v] = lunghCamm[curr] + 1;
+                    if(v == a) return lunghCamm[v];
                     visitati[v] = true;
                     q.push(v);
                 }
@@ -44,7 +44,7 @@ class Grafo {
         }
 
         vector<int> bfsMinPath(int p, int a){
-            map<int, vector<int>> paths;
+            unordered_map<int, vector<int>> paths;
             vector<bool> visitati(n(), false);
             queue<int> q;
 
@@ -55,12 +55,11 @@ class Grafo {
             while(!q.empty()){
                 int curr = q.front(); q.pop();
 
-                if(curr == a) return paths[a];
-
                 for(int v : adj[curr]){
                     if(visitati[v]) continue;
                     paths[v] = paths[curr];
                     paths[v].push_back(v);
+                    if(v == a) return paths[v];
                     visitati[v] = true;
                     q.push(v);
                 }

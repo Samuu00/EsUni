@@ -57,7 +57,7 @@ class Grafo {
         bool dfs(int i, vector<bool>& visitato, int k){
             visitato[i] = true;
             if(i == g() - 1 && k == 0) return true;
-            for(int v : grafo[i]){
+            for(int v : adj[i]){
                 if(visitato[v]) continue;
                 if(dfs(v, visitato, k - 1)) return true;
             }

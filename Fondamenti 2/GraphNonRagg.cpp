@@ -47,7 +47,7 @@ class Grafo {
                 for(int j = 0; j < n(); j++){
                     if(visitati[j]) cont++;
                 }
-                ragg[i] = count;
+                ragg[i] = cont;
             }
 
             int mNode = INT_MAX;
