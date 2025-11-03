@@ -1,5 +1,5 @@
 # 💫 About Me:
-💻Computer science student at Università della Calabria
+💻Computer science student at Università della Calabria.
 
 
 # 💻 Tech Stack:
