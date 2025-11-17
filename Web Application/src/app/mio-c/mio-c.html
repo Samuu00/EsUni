@@ -1,0 +1,12 @@
+<div>
+  <p>nome: {{nome}}</p>
+  <p>eta: {{eta}}</p>
+  @if (eta > 18){
+    <p> maggiorenne </p>
+  }
+  @if (eta < 18){
+    <p> minorenne </p>
+  }
+
+  <button {click} = "Incrementa"> {{contatore + 1}} </button>>
+</div>
