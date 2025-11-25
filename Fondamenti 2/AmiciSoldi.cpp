@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
+using namespace std;
 
 class GestioneDebiti{
     private:
@@ -8,27 +9,27 @@ class GestioneDebiti{
         vector<vector<float>> prestiti;
 
     public:
-        GestioneDebiti(vector<string> a) : prestiti(n, vector<float>(n.size(), 0)) {
+        GestioneDebiti(vector<string> a) : prestiti(amici.size(), vector<float>(amici.size(), 0)) {
             for(int i = 0; i < a.size(); i++){
                 amici[a[i]] = i;
             }
         }
         
         void anticipa(string x, string y, float k){
-                if(y == *){
-                    int ix = amici.at(x);
-                    int div = k / prestiti.size();
-                    for(int i = 0; i < prestiti.size(); i++){
-                            if(i == ix) continue;
-                            prestiti[i][ix] += div;
-                        }
+            int ix = amici.at(x);
+             if(y == "*"){
+                int div = k / prestiti.size();
+                for(int i = 0; i < prestiti.size(); i++){
+                        if(i == ix) continue;
+                        prestiti[i][ix] += div;
                     }
-                }else{
+                }
+                else{
+
                     int iy = amici.at(y);
                     prestiti[iy][ix] += k;
                 }
             }
-        }
         
         float saldo(string x, string y){
             int ix = amici.at(x);
