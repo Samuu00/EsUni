@@ -79,3 +79,103 @@ class Grafo {
             return false;
         }
 };
+
+
+//es4
+class Grafo {
+    private:
+        int numNodi;
+        int numArchi;
+        vector<vector<bool>> adj;
+
+    public:
+        Grafo(int n) : numNodi(n), numArchi(0), adj(n, vector<bool>(n, false)) {}
+
+        int n() const {
+            return numNodi;
+        }
+        int m() const {
+            return numArchi;
+        }
+
+        void aggiungiArco(int i, int j) {
+            if (i < 0 || j < 0 || i >= numNodi || j >= numNodi) throw out_of_range("Indice nodo non valido");
+            if (!adj[i][j]) {
+                adj[i][j] = true;
+                adj[j][i] = true;
+                numArchi++;
+            }
+        }
+
+        void controllaCitta(int& k, vector<bool>& citta){
+            vector<vector<int>> controlli(n());
+            vector<int> fazioneT;
+            vector<int> fazioneF;
+
+            for(int i = 0; i < n(); i++){
+                for(int j = 0; j < n(); j++){
+
+                    if(adj[i][j] && i != j){
+
+                        if(citta[i] && !citta[j]){
+                            controlli[i].push_back(j);
+                            fazioneT.push_back(i);
+                            fazioneF.push_back(j);
+                        } 
+                    }
+                }
+            }
+
+            if(fazioneT.size() < k){
+                cout<< "IMPOSSIBILE" << endl;
+                return;
+            } 
+
+
+            vector<int> scelti;
+            if(cercaCombin(0, k, scelti, fazioneT, fazioneF, controlli)){
+
+                for(int s : scelti) cout<< s << " ";
+                cout<< endl;
+
+            }else{
+
+                cout<< "IMPOSSIBILE";
+            }
+        }
+
+
+        bool cercaCombin(int index, int k, vector<int>& scelti, vector<int>& fazioneT, vector<int>& fazioneF, vector<vector<int>> controlli){
+            if(scelti.size() == k){
+
+                vector<bool> visitati(n(), false);
+
+                for(int pos : scelti){
+
+                    for(int nemico : controlli[pos]){
+
+                        visitati[nemico] = true;
+                    }
+                }
+
+                for(int nemico : fazioneF){
+
+                    if(!visitati[nemico]) return false;
+                }
+
+                return true;
+            }
+
+
+            if(index == fazioneT.size()) return false;
+
+            scelti.push_back(fazioneT[index]);
+            if(cercaCombin(index + 1, k, scelti, fazioneT, fazioneF, controlli)) return true;
+            scelti.pop_back();
+
+            if(cercaCombin(index + 1, k, scelti, fazioneT, fazioneF, controlli)) return true;
+
+
+            return false;
+        }
+};
